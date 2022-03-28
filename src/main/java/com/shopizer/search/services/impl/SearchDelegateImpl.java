@@ -30,6 +30,7 @@ import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -503,6 +504,7 @@ public class SearchDelegateImpl implements SearchDelegate {
     MultiMatchQueryBuilder qb = new MultiMatchQueryBuilder(request.getMatch(), "name",
         "description", "categories", "manufacturer", "tags");
     qb.fuzziness(Fuzziness.AUTO);
+    qb.operator(Operator.AND);
 
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     searchSourceBuilder.query(qb);
